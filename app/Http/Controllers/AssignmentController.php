@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DealerController extends Controller
+class AssignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dealers.index');
+        return view('assignments.index');
     }
 
     /**
@@ -19,7 +19,7 @@ class DealerController extends Controller
      */
     public function create()
     {
-        return view('dealers.create');
+        return view('assignments.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class DealerController extends Controller
      */
     public function show(string $id)
     {
-        return view('dealers.show', ['id' => $id]);
+        return view('assignments.show', ['id' => $id]);
     }
 
     /**
@@ -43,7 +43,7 @@ class DealerController extends Controller
      */
     public function edit(string $id)
     {
-        return view('dealers.edit', ['id' => $id]);
+        return view('assignments.edit', ['id' => $id]);
     }
 
     /**
