@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dealer;
 use Illuminate\Http\Request;
 
 class DealerController extends Controller
@@ -11,7 +12,11 @@ class DealerController extends Controller
      */
     public function index()
     {
-        return view('dealers.index');
+        $dealers = Dealer::get();
+
+        return view('dealers.index', [
+            'dealers' => $dealers
+        ]);
     }
 
     /**
@@ -27,7 +32,14 @@ class DealerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedRequest = $request->validate([
+            'code' => ['required', 'string', 'unique:dealers,code'],
+            'name' => ['required', 'string', 'max:255']
+        ]);
+
+        Dealer::create($validatedRequest);
+
+        return redirect()->route('dealers.index');
     }
 
     /**
