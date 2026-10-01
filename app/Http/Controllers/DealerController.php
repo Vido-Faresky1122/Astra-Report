@@ -45,32 +45,45 @@ class DealerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Dealer $dealer)
     {
-        return view('dealers.show', ['id' => $id]);
+        return view('dealers.show', [
+            'dealer' => $dealer,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Dealer $dealer)
     {
-        return view('dealers.edit', ['id' => $id]);
+        return view('dealers.edit', [
+            'dealer' => $dealer,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Dealer $dealer)
     {
-        //
+        $validatedRequest = $request->validate([
+            'code' => ['required', 'string', 'unique:dealers,code,' . $dealer->id],
+            'name' => ['required', 'string', 'max:255']
+        ]);
+
+        $dealer->update($validatedRequest);
+
+        return redirect()->route('dealers.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, Dealer $dealer)
     {
-        //
+        $dealer->delete();
+
+        return redirect()->route('dealers.index');
     }
 }

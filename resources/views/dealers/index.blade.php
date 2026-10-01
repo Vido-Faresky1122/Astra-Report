@@ -33,17 +33,19 @@
             <tbody class="divide-y divide-gray-100">
                 @foreach ($dealers as $dealer)
                     <tr class="hover:bg-gray-50">
-                        <td class="px-5 py-3 text-gray-400">1</td>
+                        <td class="px-5 py-3 text-gray-400">{{ $loop->iteration }}</td>
                         <td class="px-5 py-3 font-medium text-gray-900">{{ $dealer->code }}</td>
                         <td class="px-5 py-3 text-gray-700">{{ $dealer->name }}</td>
                         <td class="px-5 py-3">
                             <div class="flex gap-1.5">
-                                <a href="show.html"
+                                <a href="{{ route('dealers.show', $dealer->id) }}"
                                     class="px-2.5 py-1 text-xs font-medium text-blue-700 bg-blue-50 rounded-md hover:bg-blue-100">Detail</a>
-                                <a href="edit.html"
+                                <a href="{{ route('dealers.edit', $dealer->id) }}"
                                     class="px-2.5 py-1 text-xs font-medium text-amber-700 bg-amber-50 rounded-md hover:bg-amber-100">Edit</a>
-                                <form action="">
-                                    <button onclick="document.getElementById('modal').classList.remove('hidden')"
+                                <form action="{{ route('dealers.destroy', $dealer->id) }}" method="POST" onsubmit="return confirm('Apakah anda yakin ingin menghapus dealer')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
                                         class="px-2.5 py-1 text-xs font-medium text-red-700 bg-red-50 rounded-md hover:bg-red-100">Hapus</button>
                                 </form>
                             </div>
@@ -53,27 +55,6 @@
             </tbody>
         </table>
 
-    </div>
-
-    <!-- Modal -->
-    <div id="modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-sm p-6 text-center">
-            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
-                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-1">Hapus Dealer</h3>
-            <p class="text-sm text-gray-500 mb-5">Apakah Anda yakin ingin menghapus dealer ini? Tindakan ini tidak dapat
-                dibatalkan.</p>
-            <div class="flex justify-center gap-2">
-                <button onclick="document.getElementById('modal').classList.add('hidden')"
-                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Batal</button>
-                <button class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700">Ya,
-                    Hapus</button>
-            </div>
-        </div>
     </div>
 
 </body>

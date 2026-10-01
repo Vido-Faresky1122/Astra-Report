@@ -61,4 +61,14 @@ class AssignmentController extends Controller
     {
         //
     }
+
+    public function review()
+    {
+        return view('assignments.review');
+    }
+
+    public function submit()
+    {
+        return view('assignments.submit');
+    }
 }
