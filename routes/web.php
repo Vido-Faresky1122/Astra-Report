@@ -12,6 +12,9 @@ Route::get('/', function () {
 });
 
 Route::resource('dealers', DealerController::class);
+
 Route::resource('assignments', AssignmentController::class);
+
 Route::resource('areas', AreaController::class);
+
 Route::resource('departments', DepartmentController::class);

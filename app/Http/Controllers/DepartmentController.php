@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -11,7 +12,11 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return view('departments.index');
+        $departments = Department::get();
+
+        return view('departments.index', [
+            'departments' => $departments
+        ]);
     }
 
     /**
@@ -27,38 +32,58 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedRequest = $request->validate([
+            'code' => ['required', 'string', 'unique:departments,code'],
+            'name' => ['required', 'string', 'max:255']
+        ]);
+
+        Department::create($validatedRequest);
+
+        return redirect()->route('departments.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Department $department)
     {
-        return view('departments.show', ['id' => $id]);
+        return view('departments.show', [
+            'department' => $department
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Department $department)
     {
-        return view('departments.edit', ['id' => $id]);
+        return view('departments.edit', [
+            'department' => $department
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Department $department)
     {
-        //
+        $validatedRequest = $request->validate([
+            'code' => ['required', 'string', 'unique:dealers,code,' . $department->id],
+            'name' => ['required', 'string', 'max:255']
+        ]);
+
+        $department->update($validatedRequest);
+
+        return redirect()->route('departments.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, Department $department)
     {
-        //
+        $department->delete();
+
+        return redirect()->route('departments.index');
     }
 }
