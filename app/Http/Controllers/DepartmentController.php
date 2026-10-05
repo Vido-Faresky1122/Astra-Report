@@ -12,10 +12,12 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        $title = "Management Department";
         $departments = Department::get();
 
         return view('departments.index', [
-            'departments' => $departments
+            'departments' => $departments,
+            'title' => $title
         ]);
     }
 
@@ -24,7 +26,11 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('departments.create');
+        $title = "Tambah Department - LMS ASTRA";
+
+        return view('departments.create', [
+            'title' => $title
+        ]);
     }
 
     /**
@@ -47,8 +53,11 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
+        $title = "Detail Department - LMS ASTRA";
+
         return view('departments.show', [
-            'department' => $department
+            'department' => $department,
+            'title' => $title
         ]);
     }
 
@@ -57,8 +66,11 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
+        $title = "Edit Department - LMS ASTRA";
+
         return view('departments.edit', [
-            'department' => $department
+            'department' => $department,
+            'title' => $title
         ]);
     }
 

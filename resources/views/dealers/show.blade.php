@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Dealer - LMS ASTRA</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @fonts
-</head>
-
-<body class="flex justify-center items-center h-screen">
+@section('content')
+@extends('layouts.app')
+<div class="flex justify-center items-center h-screen">
     <div class="w-full max-w-lg bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
 
         <div class="flex items-center justify-between pb-4 mb-5 border-b border-gray-100">
@@ -55,6 +46,5 @@
         </div>
 
     </div>
-</body>
-
-</html>
+</div>
+@endsection
