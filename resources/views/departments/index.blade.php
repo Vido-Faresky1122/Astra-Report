@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Department</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-<body class="bg-gray-50 p-6">
+@section('content')
+@extends('layouts.app')
+<div class="bg-gray-50 p-6">
 
     <h1 class="text-2xl font-bold text-gray-900">Manajemen Department</h1>
     <p class="text-sm text-gray-500 mb-5">Kelola data Department yang terdaftar dalam sistem.</p>
@@ -57,6 +49,5 @@
 
     </div>
 
-</body>
-
-</html>
+</div>
+@endsection

@@ -12,10 +12,12 @@ class DealerController extends Controller
      */
     public function index()
     {
+        $title = "Management Dealer";
         $dealers = Dealer::get();
 
         return view('dealers.index', [
-            'dealers' => $dealers
+            'dealers' => $dealers,
+            'title' => $title
         ]);
     }
 
@@ -24,7 +26,11 @@ class DealerController extends Controller
      */
     public function create()
     {
-        return view('dealers.create');
+        $title = "Tambah Dealer - LMS ASTRA";
+
+        return view('dealers.create', [
+            'title' => $title
+        ]);
     }
 
     /**
@@ -47,8 +53,11 @@ class DealerController extends Controller
      */
     public function show(Dealer $dealer)
     {
+        $title = "Detail Dealer - LMS ASTRA";
+
         return view('dealers.show', [
             'dealer' => $dealer,
+            'title' => $title
         ]);
     }
 
@@ -57,8 +66,11 @@ class DealerController extends Controller
      */
     public function edit(Dealer $dealer)
     {
+        $title = "Edit Dealer - LMS ASTRA";
+
         return view('dealers.edit', [
             'dealer' => $dealer,
+            'title' => $title
         ]);
     }
 
