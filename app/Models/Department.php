@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable('code', 'name')]
 #[Table('departments')]
 
 class Department extends Model
 {
-    //
+    public function assignment(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'dealer_id', 'id');
+    }
 }

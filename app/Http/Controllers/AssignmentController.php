@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
+use App\Models\Assignment;
+use App\Models\Dealer;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class AssignmentController extends Controller
@@ -11,15 +15,37 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        return view('assignments.index');
+        $title = "Management Assignment";
+        $assignments = Assignment::get();
+        $departments = Department::get();
+        $areas = Area::get();
+        $dealers = Dealer::get();
+
+        return view('assignments.index', [
+            'assignments' => $assignments,
+            'title' => $title,
+            'departments' => $departments,
+            'dealers' => $dealers,
+            'areas' => $areas
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('assignments.create');
+        $title = "Tambah Assignment - LMS ASTRA";
+        $departments = Department::get();
+        $areas = Area::get();
+        $dealers = Dealer::get();
+
+        return view('assignments.create', [
+            'title' => $title,
+            'departments' => $departments,
+            'dealers' => $dealers,
+            'areas' => $areas
+        ]);
     }
 
     /**
@@ -27,37 +53,79 @@ class AssignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedRequest = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'department_id' => ['required', 'integer', 'exists:departments,id'],
+            'area_id' => ['required', 'integer', 'exists:areas,id'],
+            'dealer_id' => ['required', 'integer', 'exists:dealers,id'],
+            'due_at' => ['required', 'date', 'after_or_equal:today'],
+        ]);
+
+        Assignment::create($validatedRequest);
+
+        return redirect()->route('assignments.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Assignment $assignment)
     {
-        return view('assignments.show', ['id' => $id]);
+        $title = "Detail Assignment - LMS ASTRA";
+        $department = Department::get();
+        $area = Area::get();
+        $dealer = Dealer::get();
+
+        return view('assignments.show', [
+            'assignment' => $assignment,
+            'title' => $title,
+            'department' => $department,
+            'dealer' => $dealer,
+            'area' => $area
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Assignment $assignment)
     {
-        return view('assignments.edit', ['id' => $id]);
+        $title = "Edit Assignment - LMS ASTRA";
+        $departments = Department::get();
+        $areas = Area::get();
+        $dealers = Dealer::get();
+
+        return view('assignments.edit', [
+            'assignment' => $assignment,
+            'title' => $title,
+            'departments' => $departments,
+            'dealers' => $dealers,
+            'areas' => $areas
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Assignment $assignment)
     {
-        //
+        $validatedRequest = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'department_id' => ['required', 'integer', 'exists:departments,id'],
+            'area_id' => ['required', 'integer', 'exists:areas,id'],
+            'dealer_id' => ['required', 'integer', 'exists:dealers,id'],
+            'due_at' => ['required', 'date', 'after_or_equal:today'],
+        ]);
+
+        $assignment->update($validatedRequest);
+
+        return redirect()->route('assignments.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Assignment $assignment)
     {
         //
     }
