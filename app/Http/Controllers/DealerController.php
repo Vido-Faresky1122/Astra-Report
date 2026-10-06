@@ -13,7 +13,7 @@ class DealerController extends Controller
     public function index()
     {
         $title = "Management Dealer";
-        $dealers = Dealer::get();
+        $dealers = Dealer::paginate(10);
 
         return view('dealers.index', [
             'dealers' => $dealers,
